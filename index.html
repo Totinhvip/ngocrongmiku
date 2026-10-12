@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tải Ngọc Rồng Miku</title>
+<meta name="description" content="Tải client Ngọc Rồng Miku cho Android (APK) và PC Windows. Tạo tài khoản ngay trong game.">
+<meta property="og:title" content="Tải Ngọc Rồng Miku">
+<meta property="og:description" content="Client Android (APK) và PC Windows. Bản chơi thử, server cày chay.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://totinhvip.github.io/ngocrongmiku/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/*
+  Hướng: khung menu NPC trong game Ngọc Rồng (chủ server chọn 12/10/2026). Màu lấy từ ảnh chụp game:
+  khung thoại trắng viền nâu, nút NPC cam, ô hành trang be, nền thế giới game xanh lục phía sau.
+  Một chủ đề sáng cố định: giao diện trong game chỉ có một bộ màu, trang giữ đúng bộ màu đó.
+*/
+:root {
+  color-scheme: light;
+  --the-gioi: #235653;  /* nền map phía sau khung thoại */
+  --thoai: #fefefe;     /* khung thoại NPC */
+  --muc: #532905;       /* chữ và viền nâu */
+  --nut: #df9e33;       /* nút menu NPC (màu nhấn duy nhất) */
+  --tui: #e6ded1;       /* ô hành trang */
+  --tui-vien: #977b55;
+  --tui-dau: #7a5f3f;   /* thanh tiêu đề: tối hơn viền để chữ trắng đủ tương phản */
+  --tui-ke: #d9c8b3;
+  --chi-so: #0057b8;    /* dòng chỉ số xanh như "Giáp+2", tối hơn bản trong game cho dễ đọc */
+  --f-game: "Baloo 2", "Be Vietnam Pro", system-ui, sans-serif; /* chữ tròn dày giống chữ menu game */
+  --f-chu: "Be Vietnam Pro", system-ui, "Segoe UI", sans-serif;  /* làm cho tiếng Việt, dấu rõ */
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--muc);
+  font: 15px/1.55 var(--f-chu);
+  /* nền map trong game: trời sáng dần lên trên, hai lớp núi xanh lục ở đáy (màu lấy từ ảnh map), khung thoại nổi phía trước */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 220' preserveAspectRatio='none'%3E%3Cpath d='M0 150 L120 70 L230 135 L360 40 L500 140 L640 60 L770 130 L900 50 L1040 135 L1200 80 V220 H0Z' fill='%231d4b48'/%3E%3Cpath d='M0 190 L160 120 L300 180 L460 110 L620 185 L780 120 L940 180 L1100 125 L1200 160 V220 H0Z' fill='%23173e3c'/%3E%3C/svg%3E") bottom / 100% 220px no-repeat fixed,
+    linear-gradient(180deg, #318685 0%, var(--the-gioi) 70%) fixed;
+  background-color: var(--the-gioi);
+}
+.khung { max-width: 46rem; margin: 0 auto; padding-inline: 16px; padding-block: 32px 64px; display: grid; gap: 18px; }
+
+/* khung thoại NPC: viền nâu dày, bo góc vừa như trong game */
+.thoai {
+  background: var(--thoai);
+  border: 3px solid var(--muc);
+  border-radius: 12px;
+  padding: 18px 16px 16px;
+  text-align: center;
+}
+h1 {
+  margin: 0;
+  font: 800 clamp(30px, 8vw, 46px)/1.1 var(--f-game);
+  letter-spacing: .02em;
+  text-wrap: balance;
+  text-shadow: 0 3px 0 var(--nut); /* bóng cam lệch dưới như chữ tiêu đề game; chữ vẫn nâu trên nền trắng cho dễ đọc */
+}
+.thoai p { margin: 6px 0 0; font-weight: 500; }
+
+/* hai nút tải dạng nút menu NPC: vệt sáng trên, đáy tối hơn tạo khối nổi như nút trong game */
+.nut-hang { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.nut {
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px;
+  min-height: 84px; padding: 12px 8px;
+  background: var(--nut);
+  border: 3px solid var(--muc);
+  border-radius: 10px;
+  box-shadow: inset 0 3px 0 rgb(255 255 255 / .38), inset 0 -4px 0 rgb(83 41 5 / .22);
+  color: var(--muc);
+  text-align: center;
+  text-decoration: none;
+  font: 800 19px/1.15 var(--f-game);
+}
+.nut small { font: 600 13px/1.3 var(--f-chu); }
+.nut:hover { filter: brightness(1.06); }
+.nut:active { transform: translateY(2px); box-shadow: inset 0 2px 0 rgb(83 41 5 / .22); }
+.nut:focus-visible, a:focus-visible { outline: 3px solid var(--thoai); outline-offset: 3px; }
+
+/* ô hành trang: thanh tiêu đề nâu, từng dòng có ô vuông bên trái như ô đồ */
+.tui { background: var(--tui); border: 3px solid var(--tui-vien); border-radius: 10px; overflow: hidden; }
+.tui h2 { margin: 0; padding: 8px 14px; background: var(--tui-dau); color: #fff; font: 700 19px/1.3 var(--f-game); }
+.dong { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 14px; border-top: 2px solid var(--tui-ke); }
+.dong:first-of-type { border-top: 0; }
+.o {
+  width: 52px; height: 52px; display: grid; place-items: center;
+  background: var(--tui-ke); border: 2px solid var(--tui-vien); border-radius: 6px;
+  font: 800 13px/1 var(--f-game); letter-spacing: .02em;
+}
+.dong h3 { margin: 0; font: 700 17px/1.3 var(--f-chu); }
+.chi-so { display: block; color: var(--chi-so); font-weight: 600; overflow-wrap: anywhere; }
+.dong ol, .dong p { margin: 6px 0 0; }
+.dong ol { padding-left: 1.2em; }
+.dong li + li { margin-top: 3px; }
+
+.chan { color: var(--tui); text-align: center; display: grid; gap: 4px; }
+.chan p { margin: 0; }
+.chan a { color: #fff; font-weight: 600; }
+
+/* màn rộng: hai dòng của một ô hành trang nằm cạnh nhau (Android | PC) cho đỡ cuộn */
+@media (min-width: 680px) {
+  .tui-hai { display: grid; grid-template-columns: 1fr 1fr; }
+  .tui-hai .dong { border-top: 0; }
+  .tui-hai .dong + .dong { border-left: 2px solid var(--tui-ke); }
+  .nut { min-height: 96px; font-size: 22px; }
+}
+@media (max-width: 340px) { .nut-hang { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .nut:active { transform: none; } }
+</style>
+</head>
+<body>
+<main class="khung">
+  <section class="thoai">
+    <h1>NGỌC RỒNG MIKU</h1>
+    <p>Bản chơi thử, server cày chay.</p>
+  </section>
+
+  <div class="nut-hang">
+    <a class="nut" href="https://github.com/Totinhvip/ngocrongmiku/releases/latest/download/NroMiku.apk">Tải cho<br>Android<small>APK · 48,7&nbsp;MB</small></a>
+    <a class="nut" href="https://github.com/Totinhvip/ngocrongmiku/releases/latest/download/NroMiku_PC.zip">Tải cho<br>PC<small>Windows · 45,8&nbsp;MB</small></a>
+  </div>
+
+  <section class="tui" aria-labelledby="cach-cai">
+    <h2 id="cach-cai">Cách cài</h2>
+    <div class="tui-hai">
+    <div class="dong">
+      <div class="o" aria-hidden="true">APK</div>
+      <div>
+        <h3>Android</h3>
+        <span class="chi-so">NroMiku.apk · 48,7&nbsp;MB</span>
+        <ol>
+          <li>Bấm “Tải cho Android”, chờ tải xong.</li>
+          <li>Mở file vừa tải. Nếu máy hỏi, cho phép trình duyệt cài ứng dụng.</li>
+          <li>Mở game Ngọc Rồng Miku.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="dong">
+      <div class="o" aria-hidden="true">ZIP</div>
+      <div>
+        <h3>PC Windows</h3>
+        <span class="chi-so">NroMiku_PC.zip · 45,8&nbsp;MB</span>
+        <ol>
+          <li>Bấm “Tải cho PC”, chờ tải xong.</li>
+          <li>Giải nén file zip: chuột phải, chọn “Giải nén tất cả”.</li>
+          <li>Mở thư mục NroMiku, chạy NroMiku.exe. Nếu Windows báo “Windows đã bảo vệ PC của bạn”, bấm “Thông tin bổ sung” rồi “Vẫn chạy”.</li>
+        </ol>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="tui" aria-labelledby="vao-game">
+    <h2 id="vao-game">Vào game</h2>
+    <div class="tui-hai">
+    <div class="dong">
+      <div class="o" aria-hidden="true">TK</div>
+      <div>
+        <h3>Tạo tài khoản</h3>
+        <p>Tạo ngay trong game: ở màn hình đăng nhập, bấm “Đăng ký tài khoản mới”. Trang này chỉ để tải game.</p>
+      </div>
+    </div>
+    <div class="dong">
+      <div class="o" aria-hidden="true">GC</div>
+      <div>
+        <h3>Giftcode tân thủ</h3>
+        <span class="chi-so">tanthunro</span>
+        <p>Nhập ở ông Gohan, mục “GIFTCODE Bảo Mật”, chọn “Nhập Giftcode”.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <footer class="chan">
+    <p>Cần giúp? Nhắn Zalo <a href="https://zalo.me/0967531545">0967531545</a></p>
+    <p>Bản client 12/10/2026</p>
+  </footer>
+</main>
+</body>
+</html>
