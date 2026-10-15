@@ -123,8 +123,8 @@ h1 {
   </section>
 
   <div class="nut-hang">
-    <a class="nut" href="https://github.com/Totinhvip/ngocrongmiku/releases/latest/download/NroMiku.apk">Tải cho<br>Android<small>APK · 48,7&nbsp;MB</small></a>
-    <a class="nut" href="https://github.com/Totinhvip/ngocrongmiku/releases/latest/download/NroMiku_PC.zip">Tải cho<br>PC<small>Windows · 45,8&nbsp;MB</small></a>
+    <a class="nut" href="https://github.com/Totinhvip/ngocrongmiku/releases/latest/download/NroMiku.apk">Tải cho<br>Android<small>APK · <span data-tep="NroMiku.apk">48,7&nbsp;MB</span></small></a>
+    <a class="nut" href="https://github.com/Totinhvip/ngocrongmiku/releases/latest/download/NroMiku_PC.zip">Tải cho<br>PC<small>Windows · <span data-tep="NroMiku_PC.zip">45,8&nbsp;MB</span></small></a>
   </div>
 
   <section class="tui" aria-labelledby="cach-cai">
@@ -134,7 +134,7 @@ h1 {
       <div class="o" aria-hidden="true">APK</div>
       <div>
         <h3>Android</h3>
-        <span class="chi-so">NroMiku.apk · 48,7&nbsp;MB</span>
+        <span class="chi-so">NroMiku.apk · <span data-tep="NroMiku.apk">48,7&nbsp;MB</span></span>
         <ol>
           <li>Bấm “Tải cho Android”, chờ tải xong.</li>
           <li>Mở file vừa tải. Nếu máy hỏi, cho phép trình duyệt cài ứng dụng.</li>
@@ -146,7 +146,7 @@ h1 {
       <div class="o" aria-hidden="true">ZIP</div>
       <div>
         <h3>PC Windows</h3>
-        <span class="chi-so">NroMiku_PC.zip · 45,8&nbsp;MB</span>
+        <span class="chi-so">NroMiku_PC.zip · <span data-tep="NroMiku_PC.zip">45,8&nbsp;MB</span></span>
         <ol>
           <li>Bấm “Tải cho PC”, chờ tải xong.</li>
           <li>Giải nén file zip: chuột phải, chọn “Giải nén tất cả”.</li>
@@ -180,8 +180,24 @@ h1 {
 
   <footer class="chan">
     <p>Cần giúp? Nhắn Zalo <a href="https://zalo.me/0967531545">0967531545</a></p>
-    <p>Bản client 12/10/2026</p>
+    <p>Bản client <span id="ngay-client">15/10/2026</span></p>
   </footer>
 </main>
+<script>
+// Ngày và dung lượng lấy theo bản client đang cho tải trên GitHub: panel server đưa bản mới lên là trang tự đổi theo.
+// Lỗi mạng hoặc hết lượt hỏi GitHub thì giữ chữ có sẵn trong trang.
+fetch('https://api.github.com/repos/Totinhvip/ngocrongmiku/releases/latest')
+  .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+  .then(function (b) {
+    b.assets.forEach(function (a) {
+      document.querySelectorAll('[data-tep="' + a.name + '"]').forEach(function (e) {
+        e.textContent = (a.size / 1048576).toFixed(1).replace('.', ',') + '\u00a0MB';
+      });
+    });
+    document.getElementById('ngay-client').textContent =
+      new Date(b.published_at).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  })
+  .catch(function () {});
+</script>
 </body>
 </html>
